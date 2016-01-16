@@ -33,7 +33,7 @@ ctrlShow [2330,true];
 (localize "STR_Shop_Veh_UI_Fuel")+ " %7<br/>" +
 (localize "STR_Shop_Veh_UI_Armor")+ " %8",
 [_basePrice] call life_fnc_numberText,
-[round(_basePrice * 1.5)] call life_fnc_numberText,
+[round(_basePrice * 2.0)] call life_fnc_numberText,
 _vehicleInfo select 8,
 _vehicleInfo select 11,
 _vehicleInfo select 10,

@@ -5675,9 +5675,9 @@
       <Polish>Serwis lotniczy</Polish>
     </Key>
     <Key ID="STR_MAR_Channel_News">
-      <Original>Channel 7 News</Original>
-	  <German>ZAF News</German>
-      <Polish>Maszt nadawczy</Polish>
+      <Original>We Rock Altis</Original>
+	  <German>We Rock Altis</German>
+      <Polish>We Rock Altis</Polish>
     </Key>
     <Key ID="STR_MAR_DMV">
       <Original>DMV</Original>
@@ -5883,10 +5883,10 @@
 	  <German>Holzverarbeitung</German>
       <Polish>Holzverarbeitung</Polish>
     </Key>
-	<Key ID="STR_MAR_polizeihauptquartier">
-      <Original>Polizeihauptquartier</Original>
-	  <German>Polizeihauptquartier</German>
-      <Polish>Polizeihauptquartier</Polish>
+	<Key ID="STR_MAR_Polizei_Kavala">
+      <Original>Polizeistation</Original>
+	  <German>Polizeistation</German>
+      <Polish>Polizeistation</Polish>
     </Key>
   </Package>
 </Project>
