@@ -51,6 +51,11 @@ waitUntil{scriptDone _handle};
 _handle = [] execVM "script\athiraMarket.sqf";
 waitUntil{scriptDone _handle};
 
+0 cutText ["Gestalte Pyrgos Marktplatz","BLACK FADED"];
+0 cutFadeOut 99999999;
+_handle = [] execVM "script\Pyrgos_Markt.sqf";
+waitUntil{scriptDone _handle};
+
 0 cutText ["Baue Kavala Polizeistation","BLACK FADED"];
 0 cutFadeOut 99999999;
 _handle = [] execVM "script\kavalaPoliceStation.sqf";
