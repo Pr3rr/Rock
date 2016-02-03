@@ -7,8 +7,3 @@ life_versionInfo = "Altis Life RPG v4.0.2";
 [] execVM "scripts\monitor.sqf";
 
 StartProgress = true;
-
-sfd
-ds
-sd
-dssd
