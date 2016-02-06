@@ -13,6 +13,16 @@ systemChat format["Willkommen auf dem Server", _rscLayer];
     {
         sleep 5;
         _counter = _counter - 1;
-                ((uiNamespace getVariable "osefStatusBar")displayCtrl 1000)ctrlSetText format["FPS: %1 | Polizei: %2 | Zivilisten: %3 | Sanitäter: %4 | ADAC: %5 | Position: %6", round diag_fps, west countSide playableUnits, civilian countSide playableUnits, independent countSide playableUnits, east countSide playableUnits, mapGridPosition player, _counter];
+                ((uiNamespace getVariable "osefStatusBar")
+				displayCtrl 1000)ctrlSetText format
+	["FPS: %1 | Polizei: %2 | Zivilisten: %3 | Sanitaeter: %4 | Konto: %5 | Bargeld: %6", 
+		round diag_fps, 
+		west countSide playableUnits, 
+		civilian countSide playableUnits, 
+		independent countSide playableUnits, 
+		[life_atmbank] call life_fnc_numberText, 
+		[life_cash] call life_fnc_numberText,
+		_counter];
+		
     }; 
 };

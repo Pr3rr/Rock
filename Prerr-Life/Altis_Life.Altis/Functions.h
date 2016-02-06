@@ -37,6 +37,14 @@ class Life_Client_Core
 		class admingetID {};
 		class adminMenu {};
 		class adminQuery {};
+		class adminSpectate {};
+		class adminTeleport {};
+		class adminTpHere {};
+		class adminDebugCon {};
+		class adminCompensate {};
+		class adminGodMode {};
+		class adminFreeze {};
+		class adminMarkers {};
 	};
 	
 	class Medical_System
@@ -91,6 +99,7 @@ class Life_Client_Core
 		class captureHideout {};
 		class gather {};
 		class gutAnimal {};
+		class surrender {};
 	};
 	
 	class Housing
@@ -117,7 +126,6 @@ class Life_Client_Core
 		class itemWeight {};
 		class taxRate {};
 		class vehicleAnimate {};
-		class weaponShopCfg {};
 		class vehicleWeightCfg {};
 		class houseConfig {};
 	};
@@ -189,7 +197,9 @@ class Life_Client_Core
 		class loadGear {};
 		class stripDownPlayer {};
 		class nearATM {};
-		class Uniformscolor {};
+		class playerSkins {};
+		class fadeSound {}; 
+		class switch {};
 	};
 	
 	class Network
@@ -202,7 +212,6 @@ class Life_Client_Core
 		class jumpFnc {};
 		class soundDevice {};
 		class setFuel {};
-		class setTexture {};
 		class say3D {};
 	};
 	
@@ -219,6 +228,7 @@ class Life_Client_Core
 		class removeLicenses {};
 		class demoChargeTimer {};
 		class civLoadout {};
+		class freezePlayer {};
 	};
 	
 	class Vehicle
@@ -281,7 +291,7 @@ class Life_Client_Core
 		class gangDisband {};
 		class gangDisbanded {};
 	};
-	
+		
 	class Shops
 	{
 		file = "core\shops";

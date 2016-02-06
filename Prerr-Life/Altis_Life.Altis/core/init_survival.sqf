@@ -50,7 +50,7 @@
 		waitUntil {backpack player != ""};
 		_bp = backpack player;
 		_cfg = getNumber(configFile >> "CfgVehicles" >> (backpack player) >> "maximumload");
-		_load = round(_cfg / 8);
+		_load = round(_cfg / 8);	
 		life_maxWeight = life_maxWeightT + _load;
 		waitUntil {backpack player != _bp};
 		if(backpack player == "") then 

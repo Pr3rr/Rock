@@ -115,7 +115,7 @@ _objs = [
 	["Land_Atm_02_F",[3282.01,12963.5,0.2563],268.909,[[-1,4.88762e-007,0],[0,0,1]],false,false,false,true,[["<t color='#ADFF2F'>ATM</t>",life_fnc_atmMenu,"""",0,FALSE,FALSE,"""",' vehicle player == player && player distance _target < 4 ']]],
 	["OfficeTable_01_new_F",[3266.72,12964.8,0.346396],88.3636,[[0.999592,0.028557,0],[0,0,1]],false,false,false,false,false],
 	["Land_Laptop_device_F",[3266.74,12964.8,1.1632],88.9091,[[0.999819,0.0190382,0],[0,0,1]],false,false,false,true,	[
-																															["Rettungsdienst Zubehör",life_fnc_weaponShopMenu,"med_basic"],[format["%1 (€%2)",["license_med_air"] call life_fnc_varToStr,[(["mair"] call life_fnc_licensePrice)] call life_fnc_numberText],life_fnc_buyLicense,"mair",0,false,false,"",' !license_med_air && playerSide == independent ']
+																															["Rettungsdienst Zubehör",life_fnc_weaponShopMenu,"med_basic"],[format["%1 ($%2)",localize (getText(missionConfigFile >> "Licenses" >> "mAir" >> "displayName")), [(getNumber(missionConfigFile >> "Licenses" >> "mAir" >> "price"))] call life_fnc_numberText],life_fnc_buyLicense,"mAir",0,false,false,"",' !license_med_mAir && playerSide == independent ']
 																														]],
 	["Land_Defibrillator_F",[3266.65,12964.4,1.17059],168,[[0.207911,-0.978148,0],[0,-0,1]],false,false,false,false,false],
 	["Land_PortableLongRangeRadio_F",[3266.79,12965.2,1.16764],325.091,[[-0.572274,0.820062,0],[0,0,1]],false,false,false,false,false],

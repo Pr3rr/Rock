@@ -1,3 +1,0 @@
-# RocknRoleplay
-Altis Life
-Prerr

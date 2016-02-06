@@ -9,7 +9,7 @@
 private["_handle"];
 //Reset our weight and other stuff
 
-life_use_atm = TRUE;
+life_use_atm = true;
 life_hunger = 100;
 life_thirst = 100;
 life_carryWeight = 0;
@@ -71,7 +71,6 @@ if(life_removeWanted) then {
 	[getPlayerUID player] remoteExecCall ["life_fnc_wantedRemove",RSERV];
 };
 
+[] call life_fnc_playerSkins;
 [] call SOCK_fnc_updateRequest;
 [] call life_fnc_hudUpdate; //Request update of hud.
-
-[] call life_fnc_Uniformscolor;

@@ -58,9 +58,9 @@
 #define LICENSE_VALUE(varName,flag) GVAR_MNS [LICENSE_VARNAME(varName,flag),false]
 #define ITEM_VARNAME(varName) format["life_inv_%1",M_CONFIG(getText,"VirtualItems",varName,"variable")]
 #define ITEM_VALUE(varName) GVAR_MNS [ITEM_VARNAME(varName),0]
-#define ITEM_ILLEGAL(varName) M_CONFIG(getNumber,"VirtualItems",ITEM_VARNAME(varName),"illegal")
-#define ITEM_SELLPRICE(varName) M_CONFIG(getNumber,"VirtualItems",ITEM_VARNAME(varName),"sellPrice")
-#define ITEM_BUYPRICE(varName) M_CONFIG(getNumber,"VirtualItems",ITEM_VARNAME(varName),"buyPrice")
+#define ITEM_ILLEGAL(varName) M_CONFIG(getNumber,"VirtualItems",varName,"illegal")
+#define ITEM_SELLPRICE(varName) M_CONFIG(getNumber,"VirtualItems",varName,"sellPrice")
+#define ITEM_BUYPRICE(varName) M_CONFIG(getNumber,"VirtualItems",varName,"buyPrice")
 #define ITEM_NAME(varName) M_CONFIG(getText,"VirtualItems",varName,"displayName")
 
 //Condition Macros
@@ -76,6 +76,7 @@
 #define BASE_CONFIG(CFG,CLASS) inheritsFrom(configFile >> CFG >> CLASS)
 #define LIFE_SETTINGS(TYPE,SETTING) TYPE(missionConfigFile >> "Life_Settings" >> SETTING)
 #define CONFIG_VEHICLES "CfgVehicles"
+#define CONFIG_LIFE_VEHICLES "LifeCfgVehicles"
 #define CONFIG_WEAPONS "CfgWeapons"
 #define CONFIG_MAGAZINES "CfgMagazines"
 #define CONFIG_GLASSES "CfgGlasses"

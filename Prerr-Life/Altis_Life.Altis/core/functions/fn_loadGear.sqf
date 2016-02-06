@@ -30,23 +30,23 @@ if(EQUAL(count _itemArray,0)) exitWith {
 };
 
 _itemArray params [
-	["_uniform","",[""]],
-	["_vest","",[""]],
-	["_backpack","",[""]],
-	["_goggles","",[""]],
-	["_headgear","",[""]],
-	["_items",[],[[]]],
-	["_prim","",[""]],
-	["_seco","",[""]],
-	["_uItems",[],[[]]],
-	["_uMags",[],[[]]],
-	["_bItems",[],[[]]],
-	["_bMags",[],[[]]],
-	["_vItems",[],[[]]],
-	["_vMags",[],[[]]],
-	["_pItems",[],[[]]],
-	["_hItems",[],[[]]],
-	["_yItems",[],[[]]]
+	"_uniform",
+	"_vest",
+	"_backpack",
+	"_goggles",
+	"_headgear",
+	["_items",[]],
+	"_prim",
+	"_seco",
+	["_uItems",[]],
+	["_uMags",[]],
+	["_bItems",[]],
+	["_bMags",[]],
+	["_vItems",[]],
+	["_vMags",[]],
+	["_pItems",[]],
+	["_hItems",[]],
+	["_yItems",[]]
 ];
 
 if(!(EQUAL(_goggles,""))) then {_handle = [_goggles,true,false,false,false] spawn life_fnc_handleItem; waitUntil {scriptDone _handle};};
@@ -90,8 +90,4 @@ if(!(EQUAL(_seco,""))) then {_handle = [_seco,true,false,false,false] spawn life
     };
 } foreach (_hItems);
 
-if(playerSide == independent && {EQUAL(uniform player,"U_Rangemaster")}) then {
-	[player,0,"textures\medic_uniform.jpg"] remoteExecCall ["life_fnc_setTexture",RCLIENT];
-};
-
-[] call life_fnc_Uniformscolor;
+[] call life_fnc_playerSkins;

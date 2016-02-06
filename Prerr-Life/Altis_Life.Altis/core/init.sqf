@@ -15,20 +15,41 @@ waitUntil {!isNull player && player == player}; //Wait till the player is ready
 [] call compile PreprocessFileLineNumbers "core\clientValidator.sqf";
 
 //Setup initial client core functions
-//diag_log "::Life Client:: Initialization Variables";
+diag_log "::Life Client:: Initialization Variables";
 [] call compile PreprocessFileLineNumbers "core\configuration.sqf";
+
+//Set bank amount for new players
+switch (playerSide) do {
+	case west: {
+		BANK = LIFE_SETTINGS(getNumber,"bank_cop");
+		life_paycheck = LIFE_SETTINGS(getNumber,"paycheck_cop");
+	};
+	case civilian: {
+		BANK = LIFE_SETTINGS(getNumber,"bank_civ");
+		life_paycheck = LIFE_SETTINGS(getNumber,"paycheck_civ");
+	};
+	case independent: {
+		BANK = LIFE_SETTINGS(getNumber,"bank_med");
+		life_paycheck = LIFE_SETTINGS(getNumber,"paycheck_med");
+	};
+};
+
 //diag_log "::Life Client:: Variables initialized";
 //diag_log "::Life Client:: Setting up Eventhandlers";
 [] call life_fnc_setupEVH;
+
 //diag_log "::Life Client:: Eventhandlers completed";
 //diag_log "::Life Client:: Setting up user actions";
 [] call life_fnc_setupActions;
+
 //diag_log "::Life Client:: User actions completed";
 //diag_log "::Life Client:: Waiting for server functions to transfer..";
 waitUntil {(!isNil {TON_fnc_clientGangLeader})};
+
 //diag_log "::Life Client:: Received server functions.";
 0 cutText ["Waiting for the server to be ready...","BLACK FADED"];
 0 cutFadeOut 99999999;
+
 //diag_log "::Life Client:: Waiting for the server to be ready..";
 waitUntil{!isNil "life_server_isReady"};
 waitUntil{(life_server_isReady OR !isNil "life_server_extDB_notLoaded")};
@@ -41,19 +62,12 @@ waitUntil{(life_server_isReady OR !isNil "life_server_extDB_notLoaded")};
 _handle = [] execVM "script\deletions.sqf";
 waitUntil{scriptDone _handle};
 
-0 cutText ["Gestalte Kavala Marktplatz","BLACK FADED"];
+0 cutText ["Gestalte Marktplatz","BLACK FADED"];
 0 cutFadeOut 99999999;
 _handle = [] execVM "script\kavalaMarket.sqf";
-waitUntil{scriptDone _handle};
-
-0 cutText ["Gestalte Athira Marktplatz","BLACK FADED"];
-0 cutFadeOut 99999999;
 _handle = [] execVM "script\athiraMarket.sqf";
-waitUntil{scriptDone _handle};
-
-0 cutText ["Gestalte Pyrgos Marktplatz","BLACK FADED"];
-0 cutFadeOut 99999999;
 _handle = [] execVM "script\Pyrgos_Markt.sqf";
+_handle = [] execVM "script\sofiamarkt.sqf";
 waitUntil{scriptDone _handle};
 
 0 cutText ["Baue Kavala Polizeistation","BLACK FADED"];
@@ -69,6 +83,21 @@ waitUntil{scriptDone _handle};
 0 cutText ["Platziere ADAC HQ","BLACK FADED"];
 0 cutFadeOut 99999999;
 _handle = [] execVM "script\adacHQ.sqf";
+waitUntil{scriptDone _handle};
+
+0 cutText ["Schleuse Hank ein","BLACK FADED"];
+0 cutFadeOut 99999999;
+_handle = [] execVM "script\blackmarketsyrta.sqf";
+_handle = [] execVM "script\blackmarketsofia.sqf";
+waitUntil{scriptDone _handle};
+
+0 cutText ["Baue Wirtschaft auf","BLACK FADED"];
+0 cutFadeOut 99999999;
+_handle = [] execVM "script\illegalprocess.sqf";
+_handle = [] execVM "script\legalprocess.sqf";
+_handle = [] execVM "script\legaltrader.sqf";
+_handle = [] execVM "script\drugdealer.sqf";
+_handle = [] execVM "script\kameko.sqf";
 waitUntil{scriptDone _handle};
 
 
@@ -144,5 +173,3 @@ life_fnc_moveIn = compileFinal
 
 CONSTVAR(life_paycheck); //Make the paycheck static.
 if(EQUAL(LIFE_SETTINGS(getNumber,"enable_fatigue"),0)) then {player enableFatigue false;};
-
-[] call life_fnc_Uniformscolor;

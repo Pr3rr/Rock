@@ -2,7 +2,7 @@
 /*
 	File: fn_keyHandler.sqf
 	Author: Bryan "Tonic" Boardwine
-	
+
 	Description:
 	Main key handler for event 'keyDown'
 */
@@ -20,6 +20,9 @@ _mapKey = SEL(actionKeys "ShowMap",0);
 //hint str _code;
 _interruptionKeys = [17,30,31,32]; //A,S,W,D
 
+
+
+
 //Vault handling...
 if((_code in (actionKeys "GetOver") || _code in (actionKeys "salute")) && {(player GVAR ["restrained",false])}) exitWith {
 	true;
@@ -33,7 +36,7 @@ if(life_action_inUse) exitWith {
 //Hotfix for Interaction key not being able to be bound on some operation systems.
 if(!(EQUAL(count (actionKeys "User10"),0)) && {(inputAction "User10" > 0)}) exitWith {
 	//Interaction key (default is Left Windows, can be mapped via Controls -> Custom -> User Action 10)
-	if(!life_action_inUse) then {
+		if(!life_action_inUse) then {
 		[] spawn {
 			private "_handle";
 			_handle = [] spawn life_fnc_actionKeyHandler;
@@ -45,6 +48,8 @@ if(!(EQUAL(count (actionKeys "User10"),0)) && {(inputAction "User10" > 0)}) exit
 };
 
 switch (_code) do {
+
+
 	//Map Key
 	case _mapKey: {
 		switch (playerSide) do {
@@ -52,7 +57,7 @@ switch (_code) do {
 			case independent: {if(!visibleMap) then {[] spawn life_fnc_medicMarkers;}};
 		};
 	};
-	
+
 	//Holster / recall weapon.
 	case 35: {
 		if(_shift && !_ctrlKey && !(EQUAL(currentWeapon player,""))) then {
@@ -60,16 +65,17 @@ switch (_code) do {
 			player action ["SwitchWeapon", player, player, 100];
 			player switchCamera cameraView;
 		};
-		
+
 		if(!_shift && _ctrlKey && !isNil "life_curWep_h" && {!(EQUAL(life_curWep_h,""))}) then {
 			if(life_curWep_h in [RIFLE,LAUNCHER,PISTOL]) then {
 				player selectWeapon life_curWep_h;
 			};
 		};
 	};
-	
+
 	//Interaction key (default is Left Windows, can be mapped via Controls -> Custom -> User Action 10)
-	case _interactionKey: {
+	case _interactionKey: 
+	{
 		if(!life_action_inUse) then {
 			[] spawn  {
 				private "_handle";
@@ -78,25 +84,74 @@ switch (_code) do {
 				life_action_inUse = false;
 			};
 		};
+	};	
+		
+		
+	case 57:
+		{
+			if((!life_action_inUse) && (vehicle player == player) ) then
+				{				
+					if(life_inv_pickaxe > 0) then
+					{
+					
+					
+					
+						[] spawn life_fnc_pickaxeUse ;
+					
+					
+					};     
+			};  
 	};
+		
 	
+	    
+			
+		
+	
+
 	//Restraining (Shift + R)
-	case 19: {
+	case 19: 
+	{
 		if(_shift) then {_handled = true;};
 		if(_shift && playerSide == west && {!isNull cursorTarget} && {cursorTarget isKindOf "Man"} && {(isPlayer cursorTarget)} && {(side cursorTarget in [civilian,independent])} && {alive cursorTarget} && {cursorTarget distance player < 3.5} && {!(cursorTarget GVAR "Escorting")} && {!(cursorTarget GVAR "restrained")} && {speed cursorTarget < 1}) then {
 			[] call life_fnc_restrainAction;
 		};
 	};
-	
-	//Knock out, this is experimental and yeah...
-	case 34: {
+
+	// Shift+G Knock out, this is experimental and yeah...
+	case 34: 
+	{
 		if(_shift) then {_handled = true;};
-		if(_shift && playerSide == civilian && {!isNull cursorTarget} && {cursorTarget isKindOf "Man"} && {isPlayer cursorTarget} && {alive cursorTarget} && {cursorTarget distance player < 4} && {speed cursorTarget < 1}) then {
-			if(!(EQUAL(animationState cursorTarget,"Incapacitated")) && {(EQUAL(currentWeapon player,RIFLE))} OR {EQUAL(currentWeapon player,PISTOL)} && {!(EQUAL(currentWeapon player,""))} && {!life_knockout} && {!(player GVAR ["restrained",false])} && {!life_istazed}) then {
+		if(_shift && playerSide == civilian && !isNull cursorTarget && cursorTarget isKindOf "Man" && isPlayer cursorTarget && alive cursorTarget && cursorTarget distance player < 4 && speed cursorTarget < 1) then {
+			if((animationState cursorTarget) != "Incapacitated" && (currentWeapon player == primaryWeapon player OR currentWeapon player == handgunWeapon player) && currentWeapon player != "" && !life_knockout && !(player getVariable["restrained",false]) && !life_istazed) then {
 				[cursorTarget] spawn life_fnc_knockoutAction;
 			};
 		};
 	};
+	
+	
+	
+	//surrender... shift + H	
+	case 36:	
+	{
+	    if (_shift) then {_handled = true;};
+		
+	    if (_shift) then 
+		{
+		    if (vehicle player == player && !(player getVariable ["restrained", false]) && (animationState player) != "Incapacitated" && !life_istazed) then
+			{
+	            if (player getVariable ["surrender", false]) then 
+			    {
+			        player setVariable ["surrender", false, true];
+			    } else
+			    {
+			        [] spawn life_fnc_surrender;	
+			    };
+		    };
+		};
+	};
+	
+	
 
 	//T Key (Trunk)
 	case 20: {
@@ -107,8 +162,8 @@ switch (_code) do {
 				};
 			} else {
 				private "_list";
-				_list = ["landVehicle","Air","Ship","House_F"];
-				if(KINDOF_ARRAY(cursorTarget,_list) && {player distance cursorTarget < 7} && {vehicle player == player} && {alive cursorTarget} && {!life_action_inUse}) then {
+				_list = ["landVehicle","Air","Ship","House_F","Logistic"];
+				if(KINDOF_ARRAY(cursorTarget,_list) && {player distance cursorTarget < 3} && {vehicle player == player} && {alive cursorTarget} && {!life_action_inUse}) then {
 					if(cursorTarget in life_vehicles OR {!(cursorTarget GVAR ["locked",true])}) then {
 						[cursorTarget] call life_fnc_openInventory;
 					};
@@ -131,17 +186,17 @@ switch (_code) do {
 				};
 			};
 		};
-		
+
 		if(!_alt && !_ctrlKey) then { [] call life_fnc_radar; };
 	};
-	
+
 	//Y Player Menu
 	case 21: {
 		if(!_alt && !_ctrlKey && !dialog && {!life_action_inUse}) then {
 			[] call life_fnc_p_openMenu;
 		};
 	};
-	
+
 	//F Key
 	case 33: {
 		if(playerSide in [west,independent] && {vehicle player != player} && {!life_siren_active} && {((driver vehicle player) == player)}) then {
@@ -150,7 +205,7 @@ switch (_code) do {
 				sleep 4.7;
 				life_siren_active = false;
 			};
-			
+
 			_veh = vehicle player;
 			if(isNil {_veh GVAR "siren"}) then {_veh SVAR ["siren",false,true];};
 			if((_veh GVAR "siren")) then {
@@ -168,7 +223,7 @@ switch (_code) do {
 			};
 		};
 	};
-	
+
 	//O Key
 	case 24: {
 		if(_shift) then {
@@ -181,7 +236,7 @@ switch (_code) do {
 			};
 		};
 	};
-	
+
 	//U Key
 	case 22: {
 		if(!_alt && !_ctrlKey) then {
@@ -190,13 +245,13 @@ switch (_code) do {
 			} else {
 				_veh = vehicle player;
 			};
-			
+
 			if(_veh isKindOf "House_F" && {playerSide == civilian}) then {
 				if(_veh in life_vehicles && player distance _veh < 8) then {
 					_door = [_veh] call life_fnc_nearestDoor;
 					if(EQUAL(_door,0)) exitWith {hint localize "STR_House_Door_NotNear"};
 					_locked = _veh GVAR [format["bis_disabled_Door_%1",_door],0];
-					
+
 					if(EQUAL(_locked,0)) then {
 						_veh SVAR [format["bis_disabled_Door_%1",_door],1,true];
 						_veh animate [format["door_%1_rot",_door],0];
@@ -222,7 +277,7 @@ switch (_code) do {
 							_veh lock 2;
 						} else {
 							[_veh,2] remoteExecCall ["life_fnc_lockVehicle",_veh];
-						};	
+						};
 						systemChat localize "STR_MISC_VehLock";
 					};
 				};
@@ -231,17 +286,26 @@ switch (_code) do {
 	};
 	
 	
-	case 207:
-    {
-	if(_shift) then {
-		switch (player getVariable["Earplugs",0]) do {
-			case 0: {hintSilent "Ohrstöpsel rein auf 90%"; 1 fadeSound 0.1; player setVariable ["Earplugs", 10]; };
-			case 10: {hintSilent "Ohrstöpsel rein auf 60%"; 1 fadeSound 0.4; player setVariable ["Earplugs", 40]; };
-			case 40: {hintSilent "Ohrstöpsel rein auf 30%"; 1 fadeSound 0.7; player setVariable ["Earplugs", 70]; };
-			case 70: {hintSilent "Ohrstöpsel entfernt"; 1 fadeSound 1; player setVariable ["Earplugs", 0]; };
-		    };
-	   };
-   };
+	//Shift+ende = Faded Sound
+		case 207:
+			{
+			if(_shift) then
+			{
+			[] call life_fnc_fadeSound;
+			_handled = true;
+		};
+	};
+	
+	
+	// interaktionstaste
+ 
+//   case 16:
+//    {    
+//        if((!life_action_inUse) && (vehicle player == player) ) then
+//        {
+//            [] call life_fnc_switch;
+//        };
+//	};    
 	
 	
 };

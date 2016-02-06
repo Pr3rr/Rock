@@ -8,7 +8,7 @@
 */
 private["_vehicle","_vehicleInfo","_value","_list"];
 _vehicle = cursorTarget;
-_list = ["Air","Ship","LandVehicle"];
+_list = ["Air","Ship","LandVehicle","Logistic"];
 if(isNull _vehicle OR {!(KINDOF_ARRAY(_vehicle,_list))}) exitWith {};
 
 _vehicleInfo = _vehicle GVAR ["Trunk",[]];

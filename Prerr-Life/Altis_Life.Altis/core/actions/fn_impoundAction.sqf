@@ -8,7 +8,7 @@
 */
 private["_vehicle","_type","_time","_price","_vehicleData","_upp","_ui","_progress","_pgText","_cP","_filters"];
 _vehicle = param [0,ObjNull,[ObjNull]];
-_filters = ["Car","Air","Ship"];
+_filters = ["Car","Air","Ship","Logistik"];
 if(!((KINDOF_ARRAY(_vehicle,_filters)))) exitWith {};
 if(player distance cursorTarget > 10) exitWith {};
 
